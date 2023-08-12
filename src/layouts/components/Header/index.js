@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
-import image from "../../../../assets/images";
+import image from "../../../assets/images";
 import "tippy.js/dist/tippy.css";
 
 import Tippy from "@tippyjs/react";
@@ -20,12 +20,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { useEffect, useState } from "react";
-import Button from "../../../Button";
-import Menu from "../../../Popper/Menu";
-import DarkModeBtn from "../../../Button/DarkModeBtn";
-import Image from "../../../Image";
+import routerConfig from "../../../config/routes";
+import Button from "../../../components/Button";
+import Menu from "../../../components/Popper/Menu";
+import DarkModeBtn from "../../../components/Button/DarkModeBtn";
+import Image from "../../../components/Image";
 import Search from "./Search";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -109,7 +110,9 @@ function Header() {
         <header className={cx("wrapper")}>
             <div className={cx("inner")}>
                 <div className={cx("logo")}>
-                    <img src={image.logo} alt="logo" />
+                    <Link to={routerConfig.home}>
+                        <img src={image.logo} alt="logo" />
+                    </Link>
                 </div>
                 <Search />
                 <div className={cx("actions")}>

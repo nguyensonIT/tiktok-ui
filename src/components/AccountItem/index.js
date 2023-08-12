@@ -8,7 +8,6 @@ import Image from "../Image";
 const cx = classNames.bind(styles);
 
 function AccountItem({ acc }) {
-    console.log(acc);
     return (
         <Link to={`/@${acc.nickname}`} className={cx("wrapper")}>
             <Image

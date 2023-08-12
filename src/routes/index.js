@@ -3,28 +3,29 @@ import Following from "../pages/Following";
 import Profile from "../pages/Profile";
 import Upload from "../pages/Upload";
 import Search from "../pages/Search";
-import { HeaderOnly } from "../components/Layout";
+import { HeaderOnly } from "../layouts";
+import config from "../config";
 
 export const publicRoutes = [
     {
-        path: "/",
+        path: config.routes.home,
         component: Home,
     },
     {
-        path: "/following",
+        path: config.routes.following,
         component: Following,
     },
     {
-        path: "/:nickname",
+        path: config.routes.profile,
         component: Profile,
     },
     {
-        path: "/upload",
+        path: config.routes.upload,
         component: Upload,
         layout: HeaderOnly,
     },
     {
-        path: "/search",
+        path: config.routes.search,
         component: Search,
         layout: null,
     },
