@@ -139,7 +139,6 @@ function Header() {
                                 src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/42a81079b5885e152707b170d63ba2df~c5_100x100.jpeg?x-expires=1691719200&x-signature=rQCRIIsEbD8lStyqCnkJp5%2BNR14%3D"
                                 className={cx("user-avatar")}
                                 alt="img"
-                                fallback="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/4d0846d02dc115c3ebe6603cbb4e07d3~c5_100x100.jpeg?x-expires=1691895600&x-signature=3b6mxbgfgYQ4Sc1i2NTgWm8To6o%3D"
                             />
                         ) : (
                             <button className={cx("more-btn")}>
