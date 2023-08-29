@@ -2,8 +2,7 @@ import classNames from "classnames/bind";
 import styles from "./SuggestedAccounteds.module.scss";
 import AccountItems from "./AccountItems";
 const cx = classNames.bind(styles);
-function SuggestedAccounteds({ title, data = [] }) {
-    console.log(data);
+function SuggestedAccounteds({ title, data = [], onChangeShow, isShowLess }) {
     return (
         <div className={cx("wrapper-suggested")}>
             <p className={cx("title")}>{title}</p>
@@ -12,7 +11,9 @@ function SuggestedAccounteds({ title, data = [] }) {
                     <AccountItems key={user.id} data={user} />
                 ))}
             </div>
-            <p className={cx("seemore")}>See more</p>
+            <span className={cx("seemore")} onClick={onChangeShow}>
+                {isShowLess ? "See more" : "Show less"}
+            </span>
         </div>
     );
 }

@@ -1,8 +1,11 @@
-.wrapper{
-    width: 232px;
+.wrapper {
+    width: var(--width-sidebar);
     padding-left: 12px;
+    hr {
+        border-color: rgba(23, 25, 38, 0.06);
+    }
 }
-.container{
+.container {
     background-color: var(--white);
     bottom: 0;
     overflow-y: auto;
@@ -10,8 +13,7 @@
     position: fixed;
     width: inherit;
     top: var(--default-layout-header-height);
-    &:not(:hover)::-webkit-scrollbar-thumb{
+    &:not(:hover)::-webkit-scrollbar-thumb {
         background-color: transparent;
     }
-    
 }

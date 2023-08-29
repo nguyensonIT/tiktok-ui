@@ -1,0 +1,44 @@
+.wrapper {
+    position: fixed;
+    bottom: 10px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    transform: translateY(42px);
+    transition: all 400ms cubic-bezier(0.65, 0, 0.35, 1) 0s;
+    .get-app {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.4rem;
+        font-weight: 700;
+        padding: 0 8px;
+        margin-bottom: 12px;
+        height: 32px;
+        color: rgba(22, 24, 35, 0.75);
+        min-width: 90px;
+        border-radius: 52px;
+        background-color: var(--white);
+        border: 1px solid rgba(22, 24, 35, 0.12);
+        cursor: pointer;
+        &:hover {
+            border: 1px solid rgba(22, 24, 35, 0.2);
+        }
+    }
+    .get-app-btn {
+    }
+    .scroll-top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        background-color: var(--primary);
+        cursor: pointer;
+    }
+    .scroll-top-btn {
+        color: white;
+    }
+}

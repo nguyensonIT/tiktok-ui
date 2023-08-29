@@ -1,5 +1,6 @@
 .wrapper{
     padding: 16px;
+    width: 320px;
 }
 .header{
     display: flex;
@@ -51,4 +52,16 @@
 .text-footer{
     opacity: .6;
     font-size: 1.4rem;
+}
+
+//bio
+
+.content-bio{
+    border-top: 1px solid rgba(22, 24, 35, 0.12) ;
+    padding-top: 16px;
+    margin-top: 16px;
+    .content-bio-text{
+        font-size: 1.4rem;
+       
+    }
 }

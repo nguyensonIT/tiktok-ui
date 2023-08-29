@@ -6,7 +6,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Image from "../../Image";
 
 const cx = classNames.bind(styles);
-function AccountPreview({ data }) {
+function AccountPreview({ data = [], isPreviewInVideo = false }) {
     return (
         <div className={cx("wrapper")}>
             <header className={cx("header")}>
@@ -45,6 +45,11 @@ function AccountPreview({ data }) {
                     <span className={cx("text-footer")}>Likes</span>
                 </p>
             </div>
+            {isPreviewInVideo && (
+                <div className={cx("content-bio")}>
+                    <p className={cx("content-bio-text")}>{data.bio}</p>
+                </div>
+            )}
         </div>
     );
 }

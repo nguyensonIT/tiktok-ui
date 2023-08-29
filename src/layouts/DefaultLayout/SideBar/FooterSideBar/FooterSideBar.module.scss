@@ -1,0 +1,24 @@
+.wrapper {
+    padding: 16px 0;
+    .wrapper-box {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+        a {
+            white-space: nowrap;
+            color: rgba(22, 24, 35, 0.5);
+            margin: 5px 6px 0 0;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .coppyRight {
+        color: rgba(22, 24, 35, 0.5);
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+}
