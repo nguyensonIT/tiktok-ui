@@ -10,15 +10,16 @@ import {
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
-    faCloudArrowUp,
     faUser,
     faBookBookmark,
     faCoins,
     faGear,
     faRightToBracket,
     faMoon,
+    faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
 
 import routerConfig from "../../../config/routes";
 import Button from "../../../components/Button";
@@ -27,6 +28,9 @@ import DarkModeBtn from "../../../components/Button/DarkModeBtn";
 import Image from "../../../components/Image";
 import Search from "./Search";
 import { Link } from "react-router-dom";
+import { MessageIconSolid, SendIconSolid } from "../../../components/Icons";
+import Login from "../../../components/Login";
+import * as loginService from "../../../services/loginService";
 
 const cx = classNames.bind(styles);
 
@@ -59,6 +63,11 @@ const MENU_ITEMS = [
         title: "Keyboard Shortcut",
         icon: <FontAwesomeIcon icon={faKeyboard} />,
     },
+    {
+        title: "Dark mode",
+        icon: <FontAwesomeIcon icon={faMoon} />,
+        dark_mode: <DarkModeBtn />,
+    },
 ];
 
 const userMenu = [
@@ -83,11 +92,7 @@ const userMenu = [
         to: "/settings",
     },
     ...MENU_ITEMS,
-    {
-        title: "Dark mode",
-        icon: <FontAwesomeIcon icon={faMoon} />,
-        dark_mode: <DarkModeBtn />,
-    },
+
     {
         title: "Log out",
         icon: <FontAwesomeIcon icon={faRightToBracket} />,
@@ -97,7 +102,10 @@ const userMenu = [
 ];
 
 function Header() {
-    const currentUser = true;
+    // const currentUser = false;
+    const [isFormLogin, setIsFormLogin] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [currentUser, setCurrentUser] = useState({});
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case "language":
@@ -106,8 +114,22 @@ function Header() {
         }
     };
 
+    const handleLogin = () => {
+        setIsFormLogin(true);
+    };
+    useEffect(() => {
+        const getCurrentUser = async () => {
+            loginService
+                .currentUser(token)
+                .then((res) => setCurrentUser(res))
+                .catch((err) => console.log(err));
+        };
+        getCurrentUser();
+    }, [token]);
+    console.log(currentUser);
     return (
         <header className={cx("wrapper")}>
+            {isFormLogin && <Login setIsFormLogin={setIsFormLogin} />}
             <div className={cx("inner")}>
                 <div className={cx("logo")}>
                     <Link to={routerConfig.home}>
@@ -118,16 +140,56 @@ function Header() {
                 <div className={cx("actions")}>
                     {currentUser ? (
                         <>
-                            <Tippy content="Upload video" placement="bottom">
-                                <button className={cx("action-btn")}>
-                                    <FontAwesomeIcon icon={faCloudArrowUp} />
-                                </button>
-                            </Tippy>
+                            <Button
+                                outline
+                                leftIcon={
+                                    <FontAwesomeIcon
+                                        icon={faPlus}
+                                        className={cx("plus-icon")}
+                                    />
+                                }
+                                className={cx("btn-upload")}
+                            >
+                                Upload
+                            </Button>
+                            <div>
+                                <Tippy content="Messages" placement="bottom">
+                                    <div className={cx("box-messages")}>
+                                        <SendIconSolid />
+                                        <span className={cx("box-qnt")}>
+                                            20
+                                        </span>
+                                    </div>
+                                </Tippy>
+                            </div>
+                            <div>
+                                <Tippy content="Inbox" placement="bottom">
+                                    <div className={cx("box-notifications")}>
+                                        <MessageIconSolid />
+                                        <span className={cx("box-qnt")}>
+                                            20
+                                        </span>
+                                    </div>
+                                </Tippy>
+                            </div>
                         </>
                     ) : (
                         <>
-                            <Button text>Upload</Button>
-                            <Button primary>Log in</Button>
+                            <Button
+                                outline
+                                leftIcon={
+                                    <FontAwesomeIcon
+                                        icon={faPlus}
+                                        className={cx("plus-icon")}
+                                    />
+                                }
+                                className={cx("btn-upload")}
+                            >
+                                Upload
+                            </Button>
+                            <Button primary onClick={handleLogin}>
+                                Log in
+                            </Button>
                         </>
                     )}
                     <Menu
@@ -136,7 +198,7 @@ function Header() {
                     >
                         {currentUser ? (
                             <Image
-                                src="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/42a81079b5885e152707b170d63ba2df~c5_100x100.jpeg?x-expires=1691719200&x-signature=rQCRIIsEbD8lStyqCnkJp5%2BNR14%3D"
+                                src={currentUser.avatar}
                                 className={cx("user-avatar")}
                                 alt="img"
                             />

@@ -9,6 +9,7 @@ import BoxScrollToTop from "../../components/BoxScrollToTop";
 import { changeIsPlay } from "../../redux/actions";
 
 const cx = classNames.bind(styles);
+
 function Home() {
     const isPlay = useSelector((state) => state.isPlay);
     const dispatch = useDispatch();

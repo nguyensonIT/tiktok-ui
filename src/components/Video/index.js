@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import AccountPreview from "../SuggestedAccounteds/AccountPreview";
 import VideoItem from "./VideoItem";
-import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 function Video({ dataVideo }) {

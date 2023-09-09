@@ -21,7 +21,6 @@ function Menu({
     const renderItems = () => {
         return current.data.map((item, index) => {
             const isParent = !!item.children;
-
             return (
                 <MenuItem
                     key={index}

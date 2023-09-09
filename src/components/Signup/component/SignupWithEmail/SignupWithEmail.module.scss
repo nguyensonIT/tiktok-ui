@@ -1,0 +1,78 @@
+.wrapper {
+    .form-signup {
+        display: flex;
+        flex-direction: column;
+        .lable-signup {
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+        .inp-signup {
+            position: relative;
+            height: 44px;
+            margin-top: 9px;
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            background-color: rgba(22, 24, 35, 0.06);
+            input {
+                height: 100%;
+                width: 100%;
+                padding-left: 12px;
+                border: none;
+                outline: none;
+                background-color: transparent;
+            }
+            .icon-eye {
+                display: flex;
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
+        }
+        .inp-checkbox {
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            margin: 9px 0;
+            height: 44px;
+            input {
+                display: none;
+            }
+            input[type="checkbox"]:checked + .label-check {
+                color: var(--white);
+                background-color: var(--primary);
+                border: 1px solid var(--primary);
+            }
+            .label-check {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-shrink: 0;
+                height: 22px;
+                width: 22px;
+                font-size: 1.4rem;
+                border: 1px solid rgba(22, 24, 35, 0.2);
+                color: transparent;
+            }
+            p {
+                font-size: 1.2rem;
+                margin-left: 8px;
+            }
+        }
+    }
+    .forgot-link {
+        display: inline-block;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        text-decoration: none;
+        margin: 9px 0;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .btn-signup {
+        display: block;
+        width: 100%;
+        margin: 9px 0;
+    }
+}

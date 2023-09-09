@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    .content-left {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        .qr-img {
+            width: 180px;
+            height: 180px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #f2f2f2;
+            img {
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .instruct {
+            margin-top: 24px;
+            .instruct-text {
+                font-size: 1.4rem;
+                margin-bottom: 4px;
+                color: var(--text-color);
+            }
+        }
+    }
+
+    .content-right {
+        img {
+            width: 100%;
+        }
+    }
+}

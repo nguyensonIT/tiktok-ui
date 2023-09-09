@@ -1,19 +1,19 @@
-.wrapper{
+.wrapper {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: var(--default-layout-header-height,60px);
+    height: var(--default-layout-header-height, 60px);
     background-color: var(--white);
     z-index: 10;
     box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
     --search-button-width: 52px;
 }
 
-.inner{
+.inner {
     padding: 0 24px;
     height: 100%;
-    width: var(--default-layout-width,1150px);
+    width: var(--default-layout-width, 1150px);
     max-width: 100%;
     margin: 0 auto;
     display: flex;
@@ -21,24 +21,68 @@
     justify-content: space-between;
 }
 
-.logo{
-
+.logo {
 }
 
-.actions{
+.actions {
     display: flex;
     align-items: center;
+    .btn-upload {
+        border: 1px solid rgba(22, 24, 35, 0.12);
+        color: #161823;
+        font-size: 1.6rem;
+        &:hover {
+            background-color: rgba(22, 24, 35, 0.03);
+        }
+        .plus-icon {
+            margin-right: 5px;
+        }
+    }
+    .box-notifications {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-left: 16px;
+        cursor: pointer;
+        .box-qnt {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            min-height: 20px;
+            min-width: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--primary);
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1rem;
+        }
+    }
+    .box-messages {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        margin-left: 16px;
+        cursor: pointer;
+        .box-qnt {
+            position: absolute;
+            top: -10px;
+            right: -8px;
+            min-height: 20px;
+            min-width: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--primary);
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1rem;
+        }
+    }
 }
 
-.action-btn{
-    border: none;
-    color: #161823;
-    font-size: 2.2rem;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.more-btn{
+.more-btn {
     font-size: 2rem;
     margin-left: 28px;
     background-color: transparent;
@@ -49,12 +93,10 @@
 
 // avatar
 
-.user-avatar{
+.user-avatar {
     width: 40px;
     height: 40px;
     object-fit: cover;
     border-radius: 50%;
     margin-left: 20px;
 }
-
-

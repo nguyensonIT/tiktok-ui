@@ -25,13 +25,13 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tippy from "@tippyjs/react/headless";
+import MenuShare from "./MenuShare";
 
 const cx = classNames.bind(styles);
 
 function VideoItem({ data }) {
     const vidRef = useRef();
     const inpRef = useRef();
-    // const [isPlay, setIsPlay] = useState(true);
     const dispatch = useDispatch();
     const isMuted = useSelector((state) => state.isMuted);
     const valueVolume = useSelector((state) => state.valueVolume);
@@ -51,14 +51,6 @@ function VideoItem({ data }) {
         }
     };
     const handlePlay = () => {
-        // setIsPlay((prev) => {
-        //     if (prev === true) {
-        //         vidRef.current.pause();
-        //     } else {
-        //         vidRef.current.play();
-        //     }
-        //     return !prev;
-        // });
         dispatch(changeIsPlay(!isPlay));
         if (isPlay === true) {
             vidRef.current.pause();
@@ -80,7 +72,6 @@ function VideoItem({ data }) {
             }
         }
     }, [valueVolume]);
-
     const renderMore = () => {
         return (
             <PopperWrapper className={cx("custome-popper")}>
@@ -180,12 +171,14 @@ function VideoItem({ data }) {
                     />
                 </p>
                 <p className={cx("quantity")}>{data.views_count}</p>
-                <p className={cx("icon-wrapper")}>
-                    <FontAwesomeIcon
-                        className={cx("icon-active")}
-                        icon={faShare}
-                    />
-                </p>
+                <MenuShare>
+                    <p className={cx("icon-wrapper")}>
+                        <FontAwesomeIcon
+                            className={cx("icon-active")}
+                            icon={faShare}
+                        />
+                    </p>
+                </MenuShare>
                 <p className={cx("quantity")}>{data.shares_count}</p>
             </div>
         </div>
