@@ -102,10 +102,9 @@ const userMenu = [
 ];
 
 function Header() {
-    // const currentUser = false;
+    const token = localStorage.getItem("token");
     const [isFormLogin, setIsFormLogin] = useState(false);
-    const [token, setToken] = useState(localStorage.getItem("token"));
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState(null);
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case "language":
@@ -124,7 +123,7 @@ function Header() {
                 .then((res) => setCurrentUser(res))
                 .catch((err) => console.log(err));
         };
-        getCurrentUser();
+        token && getCurrentUser();
     }, [token]);
     console.log(currentUser);
     return (
@@ -193,7 +192,7 @@ function Header() {
                         </>
                     )}
                     <Menu
-                        items={currentUser ? userMenu : MENU_ITEMS}
+                        items={!!currentUser ? userMenu : MENU_ITEMS}
                         onChange={handleMenuChange}
                     >
                         {currentUser ? (

@@ -8,6 +8,7 @@ import { EyeIcon, EyeSlashIcon } from "../../../Icons";
 import * as loginService from "../../../../services/loginService";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { saveToken } from "../../../../redux/actions";
 
 const cx = classNames.bind(styles);
 function LoginWithEmail() {
@@ -23,7 +24,8 @@ function LoginWithEmail() {
         setIsLoading(true);
         try {
             const res = await loginService.login(data.username, data.password);
-            localStorage.setItem("token", res.meta.token);
+            const dataToken = res.meta.token;
+            localStorage.setItem("token", dataToken);
             setErrLabel("");
         } catch (error) {
             if ((error.response.data.status_code = 401)) {
