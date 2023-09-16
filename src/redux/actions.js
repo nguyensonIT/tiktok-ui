@@ -16,3 +16,9 @@ export const changeIsPlay = (data) => {
         payload: data,
     };
 };
+export const changeTypeNotificationAuth = (data) => {
+    return {
+        type: "home/authNotify",
+        payload: data,
+    };
+};

@@ -31,6 +31,9 @@ import { Link } from "react-router-dom";
 import { MessageIconSolid, SendIconSolid } from "../../../components/Icons";
 import Login from "../../../components/Login";
 import * as loginService from "../../../services/loginService";
+import NotificationAuth from "../../../components/NotificationAuth";
+import { useDispatch, useSelector } from "react-redux";
+import { changeTypeNotificationAuth } from "../../../redux/actions";
 
 const cx = classNames.bind(styles);
 
@@ -94,9 +97,9 @@ const userMenu = [
     ...MENU_ITEMS,
 
     {
+        type: "logout",
         title: "Log out",
         icon: <FontAwesomeIcon icon={faRightToBracket} />,
-        to: "/logout",
         separate: true,
     },
 ];
@@ -104,17 +107,32 @@ const userMenu = [
 function Header() {
     const token = localStorage.getItem("token");
     const [isFormLogin, setIsFormLogin] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState({});
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case "language":
                 break;
+            case "logout":
+                handleLogout();
+                break;
             default:
         }
     };
+    const typeNotification = useSelector((state) => state.typeNotification);
+    const dispatch = useDispatch();
 
     const handleLogin = () => {
         setIsFormLogin(true);
+    };
+    const handleLogout = () => {
+        dispatch(
+            changeTypeNotificationAuth({
+                style: "translateY(0px)",
+                title: "Logout success",
+            })
+        );
+        localStorage.removeItem("token");
+        window.location.reload();
     };
     useEffect(() => {
         const getCurrentUser = async () => {
@@ -125,9 +143,13 @@ function Header() {
         };
         token && getCurrentUser();
     }, [token]);
-    console.log(currentUser);
+    console.log(typeNotification);
     return (
         <header className={cx("wrapper")}>
+            <NotificationAuth
+                style={{ transform: typeNotification.style }}
+                title={typeNotification.title}
+            />
             {isFormLogin && <Login setIsFormLogin={setIsFormLogin} />}
             <div className={cx("inner")}>
                 <div className={cx("logo")}>
@@ -137,7 +159,7 @@ function Header() {
                 </div>
                 <Search />
                 <div className={cx("actions")}>
-                    {currentUser ? (
+                    {!!Object.keys(currentUser).length ? (
                         <>
                             <Button
                                 outline
@@ -192,10 +214,10 @@ function Header() {
                         </>
                     )}
                     <Menu
-                        items={!!currentUser ? userMenu : MENU_ITEMS}
+                        items={token ? userMenu : MENU_ITEMS}
                         onChange={handleMenuChange}
                     >
-                        {currentUser ? (
+                        {!!Object.keys(currentUser).length ? (
                             <Image
                                 src={currentUser.avatar}
                                 className={cx("user-avatar")}

@@ -8,13 +8,15 @@ import { EyeIcon, EyeSlashIcon } from "../../../Icons";
 import * as loginService from "../../../../services/loginService";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { saveToken } from "../../../../redux/actions";
+import { useDispatch } from "react-redux";
+import { changeTypeNotificationAuth } from "../../../../redux/actions";
 
 const cx = classNames.bind(styles);
 function LoginWithEmail() {
     const [isLoading, setIsLoading] = useState(false);
     const [isEyePassword, setIsEyePassword] = useState(false);
     const [errLabel, setErrLabel] = useState("");
+    const dispatch = useDispatch();
     const handleChangeEyePassword = () => {
         setIsEyePassword(!isEyePassword);
     };
@@ -26,7 +28,14 @@ function LoginWithEmail() {
             const res = await loginService.login(data.username, data.password);
             const dataToken = res.meta.token;
             localStorage.setItem("token", dataToken);
+            dispatch(
+                changeTypeNotificationAuth({
+                    style: "translateY(0px)",
+                    title: "Success login",
+                })
+            );
             setErrLabel("");
+            window.location.reload();
         } catch (error) {
             if ((error.response.data.status_code = 401)) {
                 setErrLabel("Email or password information is incorrect!");
