@@ -1,0 +1,14 @@
+.wrapper {
+    padding: 16px 0;
+    .title {
+        font-size: 1.6rem;
+        color: rgba(22, 24, 35, 0.5);
+    }
+    .login-box {
+        display: block;
+        padding: 16px 0;
+        .login-btn {
+            width: 100%;
+        }
+    }
+}

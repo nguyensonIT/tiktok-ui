@@ -1,6 +1,7 @@
 import Image from "../Image";
 import Button from "../Button";
 import { wrapper as PopperWrapper } from "../Popper";
+import * as followingAccountsService from "../../services/followingAccountsService";
 
 import classNames from "classnames/bind";
 import styles from "./Video.module.scss";
@@ -8,11 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faMusic } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
-import AccountPreview from "../SuggestedAccounteds/AccountPreview";
+import AccountPreview from "../AccountsSideBar/AccountPreview";
 import VideoItem from "./VideoItem";
 
 const cx = classNames.bind(styles);
 function Video({ dataVideo }) {
+    const token = localStorage.getItem("token");
     const renderPreview = () => {
         return (
             <PopperWrapper>
@@ -20,7 +22,16 @@ function Video({ dataVideo }) {
             </PopperWrapper>
         );
     };
-
+    const handleFollowUser = async (data) => {
+        const id = data.user.id;
+        const fetchFollow = () => {
+            followingAccountsService
+                .followUser(token, id)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
+        };
+        fetchFollow();
+    };
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -90,9 +101,30 @@ function Video({ dataVideo }) {
                             </div>
                         </div>
                         <div>
-                            <Button outline className={cx("follow-btn-video")}>
-                                Follow
-                            </Button>
+                            {/* <Button
+                                onClick={() => handleFollowUser(dataVideo)}
+                                outline
+                                className={cx("following-btn-video")}
+                            >
+                                Following
+                            </Button> */}
+                            {dataVideo.user.is_followed ? (
+                                <Button
+                                    onClick={() => handleFollowUser(dataVideo)}
+                                    outline
+                                    className={cx("following-btn-video")}
+                                >
+                                    Following
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={() => handleFollowUser(dataVideo)}
+                                    outline
+                                    className={cx("follow-btn-video")}
+                                >
+                                    Follow
+                                </Button>
+                            )}
                         </div>
                     </div>
                     <div className={cx("container-video")}>

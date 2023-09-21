@@ -1,14 +1,14 @@
 import classNames from "classnames/bind";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./LoginWithEmail.module.scss";
 import Button from "../../../Button";
 import { EyeIcon, EyeSlashIcon } from "../../../Icons";
 import * as loginService from "../../../../services/loginService";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
 import { changeTypeNotificationAuth } from "../../../../redux/actions";
 
 const cx = classNames.bind(styles);

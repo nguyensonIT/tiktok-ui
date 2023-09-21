@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Video from "../../components/Video";
 import styles from "./Home.module.scss";
@@ -11,7 +11,6 @@ import { changeIsPlay } from "../../redux/actions";
 const cx = classNames.bind(styles);
 
 function Home() {
-    const isPlay = useSelector((state) => state.isPlay);
     const dispatch = useDispatch();
     const [dataVideo, setDataVideo] = useState([]);
     useEffect(() => {

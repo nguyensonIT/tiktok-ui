@@ -59,6 +59,18 @@
                 margin-left: 8px;
             }
         }
+        .loading {
+            animation: rotate 0.8s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
     }
     .forgot-link {
         display: inline-block;
@@ -68,6 +80,23 @@
         margin: 9px 0;
         &:hover {
             text-decoration: underline;
+        }
+    }
+    .box-error {
+        margin-top: 8px;
+        .wrapper-error {
+            display: flex;
+            align-items: center;
+            .icon-error {
+                font-size: 1.2rem;
+                color: var(--primary);
+            }
+            .label-error {
+                display: block;
+                font-size: 1.2rem;
+                color: var(--primary);
+                margin-left: 5px;
+            }
         }
     }
     .btn-signup {

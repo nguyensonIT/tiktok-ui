@@ -2,6 +2,7 @@ const initValue = {
     isMuted: true,
     valueVolume: 0.1,
     isPlay: true,
+    isDisplayLogin: false,
     typeNotification: {
         style: "",
         title: "",
@@ -24,6 +25,11 @@ const rootReducer = (state = initValue, action) => {
             return {
                 ...state,
                 isPlay: action.payload,
+            };
+        case "home/formLogin":
+            return {
+                ...state,
+                isDisplayLogin: action.payload,
             };
         case "home/authNotify":
             return {

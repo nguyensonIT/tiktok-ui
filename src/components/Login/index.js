@@ -21,6 +21,8 @@ import {
 import QRcode from "./component/QRcode";
 import LoginWithEmail from "./component/LoginWithEmail";
 import SignupWithEmail from "../Signup/component/SignupWithEmail";
+import { useDispatch } from "react-redux";
+import { displayFormLogin } from "../../redux/actions";
 
 const cx = classNames.bind(styles);
 const dataForm = [
@@ -133,13 +135,14 @@ const dataForm = [
         iconMore: <FontAwesomeIcon icon={faChevronDown} />,
     },
 ];
-function Login({ setIsFormLogin }) {
+function Login() {
     const refMore = useRef();
     const [dataDialog, setDataDialog] = useState([dataForm[0]]);
     const [dataItemSignUp, setDataItemSignUp] = useState([]);
     const [isLogin, setIsLogin] = useState(false);
+    const dispatch = useDispatch();
     const handleCloseDialog = () => {
-        setIsFormLogin(false);
+        dispatch(displayFormLogin(false));
     };
     const handlePrevDialog = () => {
         setDataDialog((prev) => {

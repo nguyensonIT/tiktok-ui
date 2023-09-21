@@ -33,7 +33,10 @@ import Login from "../../../components/Login";
 import * as loginService from "../../../services/loginService";
 import NotificationAuth from "../../../components/NotificationAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTypeNotificationAuth } from "../../../redux/actions";
+import {
+    changeTypeNotificationAuth,
+    displayFormLogin,
+} from "../../../redux/actions";
 
 const cx = classNames.bind(styles);
 
@@ -106,7 +109,6 @@ const userMenu = [
 
 function Header() {
     const token = localStorage.getItem("token");
-    const [isFormLogin, setIsFormLogin] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -118,11 +120,12 @@ function Header() {
             default:
         }
     };
+    const isFormLogin = useSelector((state) => state.isDisplayLogin);
     const typeNotification = useSelector((state) => state.typeNotification);
     const dispatch = useDispatch();
 
     const handleLogin = () => {
-        setIsFormLogin(true);
+        dispatch(displayFormLogin(true));
     };
     const handleLogout = () => {
         dispatch(
@@ -143,14 +146,13 @@ function Header() {
         };
         token && getCurrentUser();
     }, [token]);
-    console.log(typeNotification);
     return (
         <header className={cx("wrapper")}>
             <NotificationAuth
                 style={{ transform: typeNotification.style }}
                 title={typeNotification.title}
             />
-            {isFormLogin && <Login setIsFormLogin={setIsFormLogin} />}
+            {isFormLogin && <Login />}
             <div className={cx("inner")}>
                 <div className={cx("logo")}>
                     <Link to={routerConfig.home}>

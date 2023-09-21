@@ -22,3 +22,9 @@ export const changeTypeNotificationAuth = (data) => {
         payload: data,
     };
 };
+export const displayFormLogin = (data) => {
+    return {
+        type: "home/formLogin",
+        payload: data,
+    };
+};
