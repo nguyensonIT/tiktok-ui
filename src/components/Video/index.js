@@ -11,13 +11,15 @@ import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import AccountPreview from "../AccountsSideBar/AccountPreview";
 import VideoItem from "./VideoItem";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDataUserFollow } from "../../redux/actions";
+import { HomeContext } from "../../pages/Home";
 
 const cx = classNames.bind(styles);
 function Video({ dataVideo }) {
   const [isFollowed, setIsFollowed] = useState(dataVideo?.user?.is_followed);
+  const { userFollow, setUserFollow } = useContext(HomeContext);
   const dispatch = useDispatch();
   const renderPreview = () => {
     return (
@@ -47,12 +49,23 @@ function Video({ dataVideo }) {
   };
   const handleFollowUser = () => {
     fetchFollow(dataVideo?.user?.id);
-    setIsFollowed(true)
+    setUserFollow({ id: dataVideo?.user?.id, is_follow: true });
+    setIsFollowed(true);
   };
   const handleUnFollowUser = () => {
     fetchUnfollow(dataVideo?.user?.id);
-    setIsFollowed(false)
+    setUserFollow({ id: dataVideo?.user?.id, is_follow: false });
+    setIsFollowed(false);
   };
+
+  useEffect(() => {
+    if (userFollow.id === dataVideo?.user?.id && userFollow.is_follow) {
+      setIsFollowed(true);
+    }
+    if (userFollow.id === dataVideo?.user?.id && !userFollow.is_follow) {
+      setIsFollowed(false);
+    }
+  }, [userFollow]);
 
   return (
     <div className={cx("wrapper")}>
