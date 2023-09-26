@@ -28,3 +28,9 @@ export const displayFormLogin = (data) => {
         payload: data,
     };
 };
+export const changeDataUserFollow = (data) => {
+    return {
+        type: "home/dataFollow",
+        payload: data,
+    };
+};

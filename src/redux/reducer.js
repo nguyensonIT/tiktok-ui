@@ -7,6 +7,7 @@ const initValue = {
         style: "",
         title: "",
     },
+    dataUserFollow: [],
 };
 
 const rootReducer = (state = initValue, action) => {
@@ -36,6 +37,28 @@ const rootReducer = (state = initValue, action) => {
                 ...state,
                 typeNotification: action.payload,
             };
+        case "home/dataFollow":
+            const { id } = action.payload;
+            const updatedData = state.dataUserFollow.map((data) => {
+                if (data.id === id) {
+                    return action.payload;
+                }
+                return data;
+            });
+            const isSame = state.dataUserFollow.some(
+                (item) => item.id === action.payload.id
+            );
+            if (isSame) {
+                return {
+                    ...state,
+                    dataUserFollow: updatedData,
+                };
+            } else {
+                return {
+                    ...state,
+                    dataUserFollow: [...state.dataUserFollow, action.payload],
+                };
+            }
         default:
             return state;
     }

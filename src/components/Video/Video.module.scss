@@ -79,6 +79,9 @@
                 font-weight: 500;
                 color: var(--text-color);
                 border-color: var(--border-color);
+                &:hover {
+                    background-color: rgba(22, 24, 35, 0.03);
+                }
             }
         }
         .container-video {

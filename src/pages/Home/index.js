@@ -12,13 +12,14 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const dispatch = useDispatch();
+    const [page, setPage] = useState(1);
     const [dataVideo, setDataVideo] = useState([]);
     useEffect(() => {
         videoForYouServive
             .videoForYou("for-you", 1)
-            .then((data) => setDataVideo(data))
+            .then((data) => setDataVideo(data.data))
             .catch((err) => console.log(err));
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         const elVideos = document.querySelectorAll("#video");
@@ -44,7 +45,6 @@ function Home() {
             });
         }
     }, [dataVideo]);
-
     return (
         <div className={cx("wrapper")}>
             {dataVideo.map((data) => (

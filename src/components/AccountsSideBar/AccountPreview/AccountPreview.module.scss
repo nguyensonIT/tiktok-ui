@@ -1,67 +1,78 @@
-.wrapper{
+.wrapper {
     padding: 16px;
     width: 320px;
 }
-.header{
+.header {
     display: flex;
     align-items: center;
 }
 
-.avatar{
+.avatar {
     width: 42px;
     height: 42px;
     border-radius: 50%;
     margin-right: 120px;
 }
 
-.btn-follow{
-    padding-top: 8px ;
-    padding-bottom: 8px ;
+.btn-follow {
+    padding-top: 8px;
+    padding-bottom: 8px;
     font-size: 1.4rem;
+}
+.btn-following {
+    border-color: var(--border-color);
+    color: var(--text-color);
+    font-weight: 500;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 1.4rem;
+    &:hover {
+        border-color: var(--border-color);
+        background-color: rgba(22, 24, 35, 0.03);
+    }
 }
 
 //info-preview
 
-.check-icon{
+.check-icon {
     margin-left: 4px;
     font-size: 14px;
     color: rgb(32, 213, 236);
 }
 
-.info-preview{
+.info-preview {
     margin-top: 16px;
 }
 
-.nick-name{
+.nick-name {
     font-size: 18px;
 }
 
-.name{
+.name {
     font-size: 1.3rem;
     font-weight: 300;
 }
 
-.number ~ .number{
+.number ~ .number {
     margin-left: 14px;
 }
 
-.footer{
+.footer {
     margin-top: 12px;
 }
 
-.text-footer{
-    opacity: .6;
+.text-footer {
+    opacity: 0.6;
     font-size: 1.4rem;
 }
 
 //bio
 
-.content-bio{
-    border-top: 1px solid rgba(22, 24, 35, 0.12) ;
+.content-bio {
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
     padding-top: 16px;
     margin-top: 16px;
-    .content-bio-text{
+    .content-bio-text {
         font-size: 1.4rem;
-       
     }
 }
