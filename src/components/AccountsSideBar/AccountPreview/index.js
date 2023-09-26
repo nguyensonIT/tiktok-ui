@@ -12,24 +12,19 @@ import { useEffect, useState } from "react";
 const cx = classNames.bind(styles);
 function AccountPreview({
   data,
+  isFollowed,
   isPreviewInVideo = false,
-  // renderButtonFollow,
-  // renderButtonDataMain,
+  handleUnFollowUser,
+  handleFollowUser
 }) {
-  const dataUserFollow = useSelector((state) => state.dataUserFollow);
 
   return (
     <div className={cx("wrapper")}>
       <header className={cx("header")}>
         <Image className={cx("avatar")} src={data.avatar} alt={data.nickname} />
-        {/* <div>
-                    {dataUserFollow.length > 0
-                        ? renderButtonFollow(dataUserFollow, data.id)
-                        : renderButtonDataMain(data, data.id)}
-                </div> */}
-        {data?.is_followed ? (
+        {isFollowed ? (
           <Button
-            //   onClick={() => handleUnFollowUser(id)}
+              onClick={() => handleUnFollowUser()}
             outline
             className={cx("following-btn-video")}
           >
@@ -37,7 +32,7 @@ function AccountPreview({
           </Button>
         ) : (
           <Button
-            //   onClick={() => handleFollowUser(id)}
+              onClick={() => handleFollowUser()}
             outline
             className={cx("follow-btn-video")}
           >

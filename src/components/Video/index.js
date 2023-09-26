@@ -11,78 +11,28 @@ import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react/headless";
 import AccountPreview from "../AccountsSideBar/AccountPreview";
 import VideoItem from "./VideoItem";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeDataUserFollow } from "../../redux/actions";
 
 const cx = classNames.bind(styles);
 function Video({ dataVideo }) {
-  const dataUserFollow = useSelector((state) => state.dataUserFollow);
-
+  const [isFollowed, setIsFollowed] = useState(dataVideo?.user?.is_followed);
   const dispatch = useDispatch();
   const renderPreview = () => {
     return (
       <PopperWrapper>
         <AccountPreview
           data={dataVideo.user}
+          isFollowed={isFollowed}
           isPreviewInVideo={true}
-          // renderButtonFollow={renderButtonFollow}
-          // renderButtonDataMain={renderButtonDataMain}
           handleUnFollowUser={handleUnFollowUser}
           handleFollowUser={handleFollowUser}
         />
       </PopperWrapper>
     );
   };
-  console.log({ dataVideo, dataUserFollow });
-//   const renderButtonFollow = (data, id) => {
-//     const item = data.find((item) => item.id === id);
-//     if (item?.is_followed) {
-//       return (
-//         <Button
-//           onClick={() => handleUnFollowUser(id)}
-//           outline
-//           className={cx("following-btn-video")}
-//         >
-//           Following
-//         </Button>
-//       );
-//     } else {
-//       return (
-//         <Button
-//           onClick={() => handleFollowUser(id)}
-//           outline
-//           className={cx("follow-btn-video")}
-//         >
-//           Follow
-//         </Button>
-//       );
-//     }
-//   };
-//   const renderButtonDataMain = (data, id) => {
-//     const check = data.id === id;
-//     if (data.is_followed && check) {
-//       return (
-//         <Button
-//           onClick={() => handleUnFollowUser(id)}
-//           outline
-//           className={cx("following-btn-video")}
-//         >
-//           Following
-//         </Button>
-//       );
-//     } else {
-//       return (
-//         <Button
-//           onClick={() => handleFollowUser(id)}
-//           outline
-//           className={cx("follow-btn-video")}
-//         >
-//           Follow
-//         </Button>
-//       );
-//     }
-//   };
+
   const fetchFollow = async (id) => {
     await followingAccountsService
       .fetchFollowUser(id)
@@ -95,19 +45,15 @@ function Video({ dataVideo }) {
       .then((res) => dispatch(changeDataUserFollow(res.data)))
       .catch((err) => console.log(err));
   };
-  const handleFollowUser = (id) => {
-    fetchFollow(id);
+  const handleFollowUser = () => {
+    fetchFollow(dataVideo?.user?.id);
+    setIsFollowed(true)
   };
-  const handleUnFollowUser = (id) => {
-    fetchUnfollow(id);
+  const handleUnFollowUser = () => {
+    fetchUnfollow(dataVideo?.user?.id);
+    setIsFollowed(false)
   };
-  // useEffect(() => {
-  //     idUserFollow && fetchFollow(idUserFollow);
-  // }, [idUserFollow]);
-  // useEffect(() => {
-  //     idUserUnfollow && fetchUnfollow(idUserUnfollow);
-  // }, [idUserUnfollow]);
-  console.log(dataVideo?.user?.is_followed);
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("container")}>
@@ -171,16 +117,9 @@ function Video({ dataVideo }) {
               </div>
             </div>
             <div>
-              {/* <Button
-                                onClick={() => handleFollowUser(dataVideo)}
-                                outline
-                                className={cx("following-btn-video")}
-                            >
-                                Following
-                            </Button> */}
-              {dataVideo?.user?.is_followed ? (
+              {isFollowed ? (
                 <Button
-                  //   onClick={() => handleUnFollowUser(id)}
+                  onClick={() => handleUnFollowUser()}
                   outline
                   className={cx("following-btn-video")}
                 >
@@ -188,9 +127,9 @@ function Video({ dataVideo }) {
                 </Button>
               ) : (
                 <Button
-                  //   onClick={() => handleFollowUser(id)}
-                  outline
+                  onClick={handleFollowUser}
                   className={cx("follow-btn-video")}
+                  outline
                 >
                   Follow
                 </Button>
