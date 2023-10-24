@@ -6,10 +6,26 @@
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.8);
     z-index: 99999;
-    transform: translateY(-40px);
-    transition: 0.5s;
+    animation: moveTop 2s forwards;
     .title {
         color: var(--white);
         text-align: center;
+    }
+}
+@keyframes moveTop {
+    0% {
+        top: 0;
+    }
+    10% {
+        top: 25px;
+    }
+    50% {
+        top: 25px;
+    }
+    75% {
+        top: 25px;
+    }
+    100% {
+        top: -50px;
     }
 }

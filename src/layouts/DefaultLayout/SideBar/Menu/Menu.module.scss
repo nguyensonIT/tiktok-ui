@@ -1,34 +1,46 @@
-.menu{
+.menu {
     padding-top: 20px;
 }
 
-.menu-item{
+.menu-item {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: var(--text-color);
     padding: 7px;
-    &:hover{
-        background-color: rgba(22, 24, 35, .03);
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
     }
-    &.active{
+    &.active {
         color: var(--primary);
-        .icon{
+        .icon {
             display: none;
         }
-        .active-icon{
+        .active-icon {
             display: flex;
         }
     }
-    .title{
+    .title {
         margin-left: 10px;
     }
 }
 
-.icon, .active-icon{
+.icon,
+.active-icon {
     display: flex;
 }
 
-.active-icon{
+.active-icon {
     display: none;
+}
+
+@media (max-width: 1071px) {
+    .title {
+        display: none;
+    }
+    .menu-item {
+        justify-content: center;
+        margin: 7px;
+        border-radius: 4px;
+    }
 }

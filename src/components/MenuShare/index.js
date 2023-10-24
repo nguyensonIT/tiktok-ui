@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react/headless";
-import { wrapper as PopperWrapper } from "../../../Popper";
-import { MENU_ITEMS, MENU_MORE } from "../../../../pages/Home/dataMenu";
+import { wrapper as PopperWrapper } from "../Popper";
+import { MENU_ITEMS, MENU_MORE } from "../MenuShare/dataMenu";
 
 import styles from "./MenuShare.module.scss";
 import MenuItem from "./MenuItem";
@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 
 const cx = classNames.bind(styles);
 
-function MenuShare({ children }) {
+function MenuShare({ children, offset = [80, 20] }) {
     const refMore = useRef();
     const [dataMenu, setDataMenu] = useState(MENU_ITEMS);
     const handleMore = () => {
@@ -45,7 +45,7 @@ function MenuShare({ children }) {
                 delay={[0, 600]}
                 interactive
                 placement="top"
-                offset={[80, 20]}
+                offset={offset}
                 render={renderItems}
                 onHide={() =>
                     setDataMenu(() => {

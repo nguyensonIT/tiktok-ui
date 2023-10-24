@@ -3,11 +3,11 @@ const initValue = {
     valueVolume: 0.1,
     isPlay: true,
     isDisplayLogin: false,
-    typeNotification: {
-        style: "",
-        title: "",
-    },
-    dataUserFollow: [],
+    notificationLogin: false,
+    notificationLogout: false,
+    notificationSignup: false,
+    notificationRegistered: false,
+    dataUser: {},
 };
 
 const rootReducer = (state = initValue, action) => {
@@ -32,33 +32,31 @@ const rootReducer = (state = initValue, action) => {
                 ...state,
                 isDisplayLogin: action.payload,
             };
-        case "home/authNotify":
+        case "home/authNotifyLogin":
             return {
                 ...state,
-                typeNotification: action.payload,
+                notificationLogin: action.payload,
             };
-        case "home/dataFollow":
-            const { id } = action.payload;
-            const updatedData = state.dataUserFollow.map((data) => {
-                if (data.id === id) {
-                    return action.payload;
-                }
-                return data;
-            });
-            const isSame = state.dataUserFollow.some(
-                (item) => item.id === action.payload.id
-            );
-            if (isSame) {
-                return {
-                    ...state,
-                    dataUserFollow: updatedData,
-                };
-            } else {
-                return {
-                    ...state,
-                    dataUserFollow: [...state.dataUserFollow, action.payload],
-                };
-            }
+        case "home/authNotifyLogout":
+            return {
+                ...state,
+                notificationLogout: action.payload,
+            };
+        case "home/authNotifySignup":
+            return {
+                ...state,
+                notificationSignup: action.payload,
+            };
+        case "home/authNotifyRegistered":
+            return {
+                ...state,
+                notificationRegistered: action.payload,
+            };
+        case "home/dataUser":
+            return {
+                ...state,
+                dataUser: action.payload,
+            };
         default:
             return state;
     }

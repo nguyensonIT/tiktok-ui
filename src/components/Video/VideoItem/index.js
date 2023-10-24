@@ -1,21 +1,22 @@
-import classNames from "classnames/bind";
 import styles from "../Video.module.scss";
 import {
     changeIsPlay,
     changeValueVolumn,
     changeVolumn,
+    displayFormLogin,
 } from "../../../redux/actions";
-import { wrapper as PopperWrapper } from "../../Popper";
+import * as likesService from "../../../services/likesService";
+import MenuShare from "../../MenuShare";
+import BoxReport from "../../BoxReport";
 
+import classNames from "classnames/bind";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useDispatch } from "react-redux";
 import {
     faBookmark,
     faCommentDots,
     faEllipsis,
-    faFlag,
     faHeart,
-    faHeartCrack,
     faPause,
     faPlay,
     faShare,
@@ -24,12 +25,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Tippy from "@tippyjs/react/headless";
-import MenuShare from "./MenuShare";
 
 const cx = classNames.bind(styles);
 
 function VideoItem({ data }) {
+    const token = localStorage.getItem("token");
+    const [likesCount, setLikesCount] = useState(data?.likes_count);
+    const [isLike, setLike] = useState(data?.is_liked);
     const vidRef = useRef();
     const inpRef = useRef();
     const dispatch = useDispatch();
@@ -37,6 +39,25 @@ function VideoItem({ data }) {
     const valueVolume = useSelector((state) => state.valueVolume);
     const isPlay = useSelector((state) => state.isPlay);
     const [beforeValue, setBeforeValue] = useState("0.1");
+
+    const handleLikeVideo = () => {
+        if (token) {
+            likesService.like(data?.id).catch((err) => console.log(err));
+            setLikesCount((prev) => prev + 1);
+            setLike(true);
+        } else {
+            dispatch(displayFormLogin(true));
+        }
+    };
+    const handleUnlikeVideo = () => {
+        if (token) {
+            likesService.unLike(data?.id).catch((err) => console.log(err));
+            setLikesCount((prev) => prev - 1);
+            setLike(false);
+        } else {
+            dispatch(displayFormLogin(true));
+        }
+    };
 
     const handleMuted = () => {
         setBeforeValue(inpRef.current.value);
@@ -72,26 +93,6 @@ function VideoItem({ data }) {
             }
         }
     }, [valueVolume]);
-    const renderMore = () => {
-        return (
-            <PopperWrapper className={cx("custome-popper")}>
-                <div className={cx("wrapper-more")}>
-                    <div className={cx("box-more")}>
-                        <span className={cx("icon-box-more")}>
-                            <FontAwesomeIcon icon={faHeartCrack} />
-                        </span>
-                        <span className={cx("text-more")}>Not Interested</span>
-                    </div>
-                    <div className={cx("box-more")}>
-                        <span className={cx("icon-box-more")}>
-                            <FontAwesomeIcon icon={faFlag} />
-                        </span>
-                        <span className={cx("text-more")}>Report</span>
-                    </div>
-                </div>
-            </PopperWrapper>
-        );
-    };
 
     return (
         <div className={cx("video-container")}>
@@ -135,28 +136,34 @@ function VideoItem({ data }) {
                         )}
                     </span>
                     <div>
-                        <Tippy
-                            interactive
-                            render={renderMore}
-                            delay={[800, 0]}
-                            placement="right"
-                            offset={[30, 30]}
-                        >
+                        <BoxReport>
                             <span className={cx("dot-more")}>
                                 <FontAwesomeIcon icon={faEllipsis} />
                             </span>
-                        </Tippy>
+                        </BoxReport>
                     </div>
                 </div>
             </div>
             <div className={cx("box-active")}>
-                <p className={cx("icon-wrapper")}>
-                    <FontAwesomeIcon
-                        className={cx("icon-active")}
-                        icon={faHeart}
-                    />
-                </p>
-                <p className={cx("quantity")}>{data.likes_count}</p>
+                {isLike ? (
+                    <p
+                        className={cx("icon-wrapper")}
+                        onClick={handleUnlikeVideo}
+                    >
+                        <FontAwesomeIcon
+                            className={cx("icon-active", { active: true })}
+                            icon={faHeart}
+                        />
+                    </p>
+                ) : (
+                    <p className={cx("icon-wrapper")} onClick={handleLikeVideo}>
+                        <FontAwesomeIcon
+                            className={cx("icon-active")}
+                            icon={faHeart}
+                        />
+                    </p>
+                )}
+                <p className={cx("quantity")}>{likesCount}</p>
                 <p className={cx("icon-wrapper")}>
                     <FontAwesomeIcon
                         className={cx("icon-active")}

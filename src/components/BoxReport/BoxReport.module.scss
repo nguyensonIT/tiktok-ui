@@ -1,0 +1,21 @@
+.custome-popper {
+    min-height: unset;
+    padding: 10px 0;
+}
+
+.wrapper-more {
+    .box-more {
+        padding: 8px 15px;
+        cursor: pointer;
+        &:hover {
+            background-color: rgba(22, 24, 35, 0.03);
+        }
+        .icon-box-more {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        .text-more {
+            font-size: 14px;
+        }
+    }
+}

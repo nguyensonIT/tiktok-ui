@@ -17,29 +17,32 @@
         }
     }
     .right {
+        flex: 1;
         .right-wrapper {
             display: flex;
             justify-content: space-between;
             .info {
-                .info-user {
-                    cursor: pointer;
-
-                    .name {
-                        font-size: 1.8rem;
-                        font-weight: 700;
-                        color: var(--text-color);
-                    }
-                    .icon-check {
-                        margin-left: 3px;
-                        color: #20d5ec;
-                        font-size: 14px;
-                    }
-                    .nickname {
-                        font-size: 1.4rem;
-                        color: #161823;
-                    }
-                    &:hover .name {
-                        text-decoration: underline;
+                .link-wrap {
+                    text-decoration: none;
+                    .info-user {
+                        cursor: pointer;
+                        .name {
+                            font-size: 1.8rem;
+                            font-weight: 700;
+                            color: var(--text-color);
+                        }
+                        .icon-check {
+                            margin-left: 3px;
+                            color: #20d5ec;
+                            font-size: 14px;
+                        }
+                        .nickname {
+                            font-size: 1.4rem;
+                            color: #161823;
+                        }
+                        &:hover .name {
+                            text-decoration: underline;
+                        }
                     }
                 }
                 .box-content-text {
@@ -192,9 +195,24 @@
                         background-color: rgba(23, 25, 38, 0.06);
                         cursor: pointer;
                     }
+                    @keyframes myHeart {
+                        0% {
+                            font-size: 0.5rem;
+                        }
+                        50% {
+                            font-size: 3rem;
+                        }
+                        100% {
+                            font-size: 2rem;
+                        }
+                    }
                     .icon-active {
                         font-size: 2rem;
                         color: rgb(22, 24, 35);
+                        &.active {
+                            color: var(--primary);
+                            animation: myHeart 0.5s ease-in-out forwards;
+                        }
                     }
                     .quantity {
                         color: rgba(22, 24, 35, 0.75);
@@ -204,28 +222,6 @@
                     }
                 }
             }
-        }
-    }
-}
-
-.custome-popper {
-    min-height: unset;
-    padding: 10px 0;
-}
-
-.wrapper-more {
-    .box-more {
-        padding: 8px 15px;
-        cursor: pointer;
-        &:hover {
-            background-color: rgba(22, 24, 35, 0.03);
-        }
-        .icon-box-more {
-            margin-right: 8px;
-            font-size: 16px;
-        }
-        .text-more {
-            font-size: 14px;
         }
     }
 }

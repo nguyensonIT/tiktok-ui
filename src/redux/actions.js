@@ -16,9 +16,27 @@ export const changeIsPlay = (data) => {
         payload: data,
     };
 };
-export const changeTypeNotificationAuth = (data) => {
+export const changeNotificationLogin = (data) => {
     return {
-        type: "home/authNotify",
+        type: "home/authNotifyLogin",
+        payload: data,
+    };
+};
+export const changeNotificationLogout = (data) => {
+    return {
+        type: "home/authNotifyLogout",
+        payload: data,
+    };
+};
+export const changeNotificationRegistered = (data) => {
+    return {
+        type: "home/authNotifyRegistered",
+        payload: data,
+    };
+};
+export const changeNotificationSignup = (data) => {
+    return {
+        type: "home/authNotifySignup",
         payload: data,
     };
 };
@@ -28,9 +46,9 @@ export const displayFormLogin = (data) => {
         payload: data,
     };
 };
-export const changeDataUserFollow = (data) => {
+export const changeDataUser = (data) => {
     return {
-        type: "home/dataFollow",
+        type: "home/dataUser",
         payload: data,
     };
 };

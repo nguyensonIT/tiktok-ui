@@ -32,6 +32,7 @@
 .wrapper-accountItem {
     display: flex;
     align-items: center;
+    text-decoration: none;
     padding: 8px;
 }
 .wrapper-accountItem:hover {
@@ -61,4 +62,20 @@
     margin-left: 2px;
     font-size: 12px;
     color: rgb(32, 213, 236);
+}
+
+@media (max-width: 1071px) {
+    .box-name,
+    .seemore,
+    .title {
+        display: none;
+    }
+    .avatar {
+        margin-right: unset;
+    }
+    .wrapper-accountItem {
+        justify-content: center;
+        margin: 8px;
+        border-radius: 4px;
+    }
 }

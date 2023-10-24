@@ -1,115 +1,34 @@
-import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import image from "../../../assets/images";
-import "tippy.js/dist/tippy.css";
-
-import Tippy from "@tippyjs/react";
-
-import {
-    faEllipsisVertical,
-    faEarthAsia,
-    faCircleQuestion,
-    faKeyboard,
-    faUser,
-    faBookBookmark,
-    faCoins,
-    faGear,
-    faRightToBracket,
-    faMoon,
-    faPlus,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
-
 import routerConfig from "../../../config/routes";
 import Button from "../../../components/Button";
 import Menu from "../../../components/Popper/Menu";
-import DarkModeBtn from "../../../components/Button/DarkModeBtn";
 import Image from "../../../components/Image";
 import Search from "./Search";
-import { Link } from "react-router-dom";
 import { MessageIconSolid, SendIconSolid } from "../../../components/Icons";
 import Login from "../../../components/Login";
 import * as loginService from "../../../services/loginService";
-import NotificationAuth from "../../../components/NotificationAuth";
-import { useDispatch, useSelector } from "react-redux";
 import {
-    changeTypeNotificationAuth,
+    changeDataUser,
+    changeNotificationLogout,
     displayFormLogin,
 } from "../../../redux/actions";
+import { MENU_ITEMS, userMenu } from "./ItemMenu";
+
+import { faEllipsisVertical, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
+import classNames from "classnames/bind";
+import "tippy.js/dist/tippy.css";
+import Tippy from "@tippyjs/react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-const MENU_ITEMS = [
-    {
-        title: "English",
-        icon: <FontAwesomeIcon icon={faEarthAsia} />,
-        children: {
-            title: "Language",
-            data: [
-                {
-                    type: "language",
-                    code: "en",
-                    title: "English",
-                },
-                {
-                    type: "language",
-                    code: "vi",
-                    title: "Tiếng Việt",
-                },
-            ],
-        },
-    },
-    {
-        title: "Feedback and help",
-        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-        to: "/feedback",
-    },
-    {
-        title: "Keyboard Shortcut",
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
-    },
-    {
-        title: "Dark mode",
-        icon: <FontAwesomeIcon icon={faMoon} />,
-        dark_mode: <DarkModeBtn />,
-    },
-];
-
-const userMenu = [
-    {
-        title: "View Profile",
-        icon: <FontAwesomeIcon icon={faUser} />,
-        to: "/profile",
-    },
-    {
-        title: "Favorites",
-        icon: <FontAwesomeIcon icon={faBookBookmark} />,
-        to: "/favorites",
-    },
-    {
-        title: "Get Coins",
-        icon: <FontAwesomeIcon icon={faCoins} />,
-        to: "/getcoins",
-    },
-    {
-        title: "Settings",
-        icon: <FontAwesomeIcon icon={faGear} />,
-        to: "/settings",
-    },
-    ...MENU_ITEMS,
-
-    {
-        type: "logout",
-        title: "Log out",
-        icon: <FontAwesomeIcon icon={faRightToBracket} />,
-        separate: true,
-    },
-];
-
 function Header() {
     const token = localStorage.getItem("token");
-    const [currentUser, setCurrentUser] = useState({});
+
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case "language":
@@ -120,39 +39,31 @@ function Header() {
             default:
         }
     };
-    const isFormLogin = useSelector((state) => state.isDisplayLogin);
-    const typeNotification = useSelector((state) => state.typeNotification);
+
+    const currentUser = useSelector((state) => state.dataUser);
     const dispatch = useDispatch();
 
     const handleLogin = () => {
         dispatch(displayFormLogin(true));
     };
     const handleLogout = () => {
-        dispatch(
-            changeTypeNotificationAuth({
-                style: "translateY(0px)",
-                title: "Logout success",
-            })
-        );
+        dispatch(changeNotificationLogout(true));
         localStorage.removeItem("token");
-        window.location.reload();
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     };
     useEffect(() => {
-        const getCurrentUser = async () => {
+        const getCurrentUser = () => {
             loginService
                 .currentUser(token)
-                .then((res) => setCurrentUser(res))
+                .then((res) => dispatch(changeDataUser(res)))
                 .catch((err) => console.log(err));
         };
         token && getCurrentUser();
     }, [token]);
     return (
         <header className={cx("wrapper")}>
-            <NotificationAuth
-                style={{ transform: typeNotification.style }}
-                title={typeNotification.title}
-            />
-            {isFormLogin && <Login />}
             <div className={cx("inner")}>
                 <div className={cx("logo")}>
                     <Link to={routerConfig.home}>

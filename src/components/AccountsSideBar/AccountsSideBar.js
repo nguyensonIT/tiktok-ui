@@ -8,6 +8,7 @@ function AccountsSideBar({
     data = [],
     onChangeShow,
     isShowLess,
+    isLogin,
 }) {
     return (
         <div className={cx("wrapper-suggested")}>
@@ -17,7 +18,7 @@ function AccountsSideBar({
             )}
             <div className={cx("content-account")}>
                 {data.map((user) => (
-                    <AccountItems key={user.id} data={user} />
+                    <AccountItems key={user.id} data={user} isLogin={isLogin} />
                 ))}
             </div>
             {data.length >= 1 && (

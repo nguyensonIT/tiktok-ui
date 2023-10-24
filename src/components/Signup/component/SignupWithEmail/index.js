@@ -12,8 +12,11 @@ import * as registerService from "../../../../services/registerService";
 import { EyeIcon, EyeSlashIcon } from "../../../Icons";
 import styles from "./SignupWithEmail.module.scss";
 import Button from "../../../Button";
-import { useDispatch, useSelector } from "react-redux";
-import { changeTypeNotificationAuth } from "../../../../redux/actions";
+import { useDispatch } from "react-redux";
+import {
+    changeNotificationRegistered,
+    changeNotificationSignup,
+} from "../../../../redux/actions";
 
 const cx = classNames.bind(styles);
 function SignupWithEmail() {
@@ -21,7 +24,6 @@ function SignupWithEmail() {
     const [isEyePassword, setIsEyePassword] = useState(false);
     const [isEyeCofirmPassword, setIsEyeCofirmPassword] = useState(false);
     const [errorRegistered, setErrorRegistered] = useState("");
-    const dataNotify = useSelector((state) => state.typeNotification);
 
     const dispatch = useDispatch();
 
@@ -46,34 +48,21 @@ function SignupWithEmail() {
                 data.email,
                 data.password
             );
-            dispatch(
-                changeTypeNotificationAuth({
-                    style: "translateY(0px)",
-                    title: "Registered successfully, logging in...",
-                })
-            );
+            dispatch(changeNotificationSignup(true));
             const dataToken = res.meta.token;
             localStorage.setItem("token", dataToken);
-            window.location.reload();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1800);
         } catch (error) {
-            dispatch(
-                changeTypeNotificationAuth({
-                    style: "translateY(0px)",
-                    title: "Account has been registered",
-                })
-            );
+            dispatch(changeNotificationRegistered(true));
             setErrorRegistered("Account has been registered");
         } finally {
             setIsLoading(false);
-            const currentDataNotify = dataNotify.title;
             setTimeout(() => {
-                dispatch(
-                    changeTypeNotificationAuth({
-                        style: "translateY(-80px)",
-                        title: currentDataNotify,
-                    })
-                );
-            }, 3000);
+                dispatch(changeNotificationSignup(false));
+                dispatch(changeNotificationRegistered(false));
+            }, 1800);
         }
     };
     const password = watch("password");
@@ -200,6 +189,7 @@ function SignupWithEmail() {
                     large
                     primary
                     disabled={
+                        isLoading ||
                         watch("email") === "" ||
                         watch("password") === "" ||
                         watch("confirmpassword") === "" ||

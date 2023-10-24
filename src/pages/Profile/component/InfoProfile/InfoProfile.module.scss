@@ -1,0 +1,134 @@
+.wrapper-info {
+    max-width: 624px;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 20px;
+    .user-info {
+        display: flex;
+        .user-info-avatar {
+            width: 116px;
+            height: 116px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+        .user-box-nickname {
+            margin-left: 20px;
+            .user-nickname {
+                display: inline-block;
+            }
+            .user-icon-tick {
+                display: inline-block;
+                margin-left: 5px;
+            }
+            .user-name {
+            }
+            .user-box-follow {
+                margin-top: 16px;
+                .box-message {
+                    display: flex;
+                    .btn-message {
+                        .btn-message-btn {
+                            padding: unset;
+                            min-height: 36px;
+                            min-width: 164px;
+                        }
+                    }
+                    .btn-unfollow {
+                        width: 36px;
+                        height: 36px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background-color: var(--white);
+                        border: 1px solid var(--border-color);
+                        border-radius: 4px;
+                        margin-left: 8px;
+                        &:hover {
+                            background-color: var(--background-hover);
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .box-btn-follow {
+                    .btn-follow {
+                        padding: 8px 16px;
+                    }
+                }
+            }
+        }
+        .box-btn-edit {
+            .btn-edit {
+                padding: 8px 16px;
+                border-color: var(--border-color);
+                color: var(--text-color);
+                font-size: 1.6rem;
+                font-weight: 600;
+                &:hover {
+                    background-color: var(--background-hover);
+                }
+            }
+        }
+    }
+    .user-follow-wrapper {
+        font-size: 1.8rem;
+        display: flex;
+        margin-top: 22px;
+        .user-follow-text {
+            margin-right: 20px;
+        }
+    }
+    .user-bio {
+        margin-top: 10px;
+    }
+    .user-social-wrapper {
+        font-size: 1.6rem;
+        margin-top: 10px;
+        .wrapper-url {
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            .icon-url {
+                font-size: 1.4rem;
+                margin-right: 5px;
+            }
+        }
+        .user-url {
+            font-size: 1.6rem;
+            color: var(--text-color-link);
+            font-weight: 600;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .box-button {
+        position: absolute;
+        right: 0;
+        display: flex;
+        gap: 20px;
+        .btn-share {
+            cursor: pointer;
+        }
+        .dot-icon {
+            cursor: pointer;
+            font-size: 2rem;
+        }
+    }
+    .biography-empty {
+        text-align: left;
+        color: rgba(22, 24, 35, 1);
+        font-family: TikTokFont, Arial, Tahoma, PingFangSC, sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 21px;
+        white-space: pre-line;
+        margin-top: 10px;
+    }
+}

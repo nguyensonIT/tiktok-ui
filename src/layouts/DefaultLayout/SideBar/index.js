@@ -102,9 +102,9 @@ function SideBar() {
                     onChangeShow={handleChangeShowAccountRegisted}
                     isShowLess={isShowLessAccountRegisted}
                 />
-                <hr className={cx("line")} />
+                <hr className={cx("line", { line_logout: true })} />
                 {!isLogin && <LoginSideBar />}
-                <hr className={cx("line")} />
+                <hr className={cx("line", { line_logout: true })} />
                 {isLogin && (
                     <AccountsSideBar
                         titleDefault="The accounts you follow will appear here"
@@ -112,9 +112,10 @@ function SideBar() {
                         data={followingUser}
                         onChangeShow={handleChangeShowAccountFollowing}
                         isShowLess={currentPage !== totalPage}
+                        isLogin
                     />
                 )}
-                <hr className={cx("line")} />
+                <hr className={cx("line", { line_logout: true })} />
                 <FooterSideBar />
             </div>
         </aside>

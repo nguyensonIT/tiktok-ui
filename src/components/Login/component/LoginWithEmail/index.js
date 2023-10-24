@@ -9,7 +9,7 @@ import styles from "./LoginWithEmail.module.scss";
 import Button from "../../../Button";
 import { EyeIcon, EyeSlashIcon } from "../../../Icons";
 import * as loginService from "../../../../services/loginService";
-import { changeTypeNotificationAuth } from "../../../../redux/actions";
+import { changeNotificationLogin } from "../../../../redux/actions";
 
 const cx = classNames.bind(styles);
 function LoginWithEmail() {
@@ -28,14 +28,11 @@ function LoginWithEmail() {
             const res = await loginService.login(data.username, data.password);
             const dataToken = res.meta.token;
             localStorage.setItem("token", dataToken);
-            dispatch(
-                changeTypeNotificationAuth({
-                    style: "translateY(0px)",
-                    title: "Success login",
-                })
-            );
+            dispatch(changeNotificationLogin(true));
             setErrLabel("");
-            window.location.reload();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             if ((error.response.data.status_code = 401)) {
                 setErrLabel("Email or password information is incorrect!");
@@ -80,9 +77,7 @@ function LoginWithEmail() {
                 <Button
                     className={cx("btn-login")}
                     disabled={
-                        isLoading ||
-                        watch("username") === "" ||
-                        watch("password") === ""
+                        isLoading || !watch("username") || !watch("password")
                     }
                     large
                     primary

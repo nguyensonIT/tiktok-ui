@@ -1,12 +1,5 @@
 import classNames from "classnames/bind";
 import styles from "./Login.module.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faChevronDown,
-    faChevronLeft,
-    faXmark,
-} from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useRef, useState } from "react";
 import {
     AppleIcon,
     FaceBookIcon,
@@ -21,8 +14,17 @@ import {
 import QRcode from "./component/QRcode";
 import LoginWithEmail from "./component/LoginWithEmail";
 import SignupWithEmail from "../Signup/component/SignupWithEmail";
-import { useDispatch } from "react-redux";
 import { displayFormLogin } from "../../redux/actions";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faChevronDown,
+    faChevronLeft,
+    faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import { useDispatch } from "react-redux";
 
 const cx = classNames.bind(styles);
 const dataForm = [
@@ -137,12 +139,16 @@ const dataForm = [
 ];
 function Login() {
     const refMore = useRef();
+    const [isClose, setIsClose] = useState(false);
     const [dataDialog, setDataDialog] = useState([dataForm[0]]);
     const [dataItemSignUp, setDataItemSignUp] = useState([]);
     const [isLogin, setIsLogin] = useState(false);
     const dispatch = useDispatch();
     const handleCloseDialog = () => {
-        dispatch(displayFormLogin(false));
+        setIsClose(true);
+        setTimeout(() => {
+            dispatch(displayFormLogin(false));
+        }, 300);
     };
     const handlePrevDialog = () => {
         setDataDialog((prev) => {
@@ -173,9 +179,10 @@ function Login() {
     useEffect(() => {
         setDataItemSignUp(dataDialog[dataDialog.length - 1].data);
     }, [dataDialog]);
-    return (
+
+    return ReactDOM.createPortal(
         <div className={cx("wrapper")}>
-            <div className={cx("dialog")}>
+            <div className={cx("dialog", { isClose: isClose })}>
                 <div className={cx("container")}>
                     <div className={cx("wrapper-content")}>
                         <div className={cx("content")}>
@@ -261,7 +268,8 @@ function Login() {
                     </div>
                 )}
             </div>
-        </div>
+        </div>,
+        document.querySelector("body")
     );
 }
 

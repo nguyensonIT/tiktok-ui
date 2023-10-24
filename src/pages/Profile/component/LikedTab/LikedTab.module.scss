@@ -1,0 +1,28 @@
+.wrapper-liked-private {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0px auto;
+    .liked-private-icon {
+        opacity: 0.34;
+    }
+    .liked-private-title {
+        font-size: 24px;
+        line-height: 30px;
+        font-weight: 700;
+        color: rgb(22, 24, 35);
+        margin-top: 24px;
+    }
+    .liked-private-desc {
+        font-size: 16px;
+        line-height: 21px;
+        font-weight: 400;
+        color: rgba(22, 24, 35, 0.75);
+        margin-top: 8px;
+    }
+}

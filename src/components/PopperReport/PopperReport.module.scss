@@ -1,0 +1,33 @@
+.wrapper {
+    padding-bottom: 8px;
+    .item {
+        color: rgb(22, 24, 35);
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 21px;
+        display: block;
+        padding: 0px 16px;
+        cursor: pointer;
+        -webkit-box-align: center;
+        align-items: center;
+        min-width: 180px;
+        box-sizing: border-box;
+        box-shadow: unset;
+        &:hover {
+            background-color: var(--background-hover);
+        }
+        .box-item {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            padding: 13px 0px;
+            .title {
+                margin-left: 15px;
+                white-space: nowrap;
+            }
+        }
+        .flag {
+            border-bottom: 1px solid rgba(22, 24, 35, 0.12);
+        }
+    }
+}
